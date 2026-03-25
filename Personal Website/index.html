@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bernardt Vogel — VC Investor & Ecosystem Builder</title>
+<meta name="description" content="Bernardt Vogel - Venture Capital Investor & Ecosystem Builder. Bridging innovation between emerging markets and global opportunities.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #1a1a2e;
+    --ink-light: #4a4a6a;
+    --ink-muted: #8888a4;
+    --surface: #fafaf9;
+    --surface-warm: #f5f0eb;
+    --accent: #2d5ce6;
+    --accent-dark: #1e3fa0;
+    --accent-light: #e8eefb;
+    --gold: #c8973e;
+    --gold-light: #faf3e6;
+    --success: #1a8c5a;
+    --border: #e4e2dd;
+    --radius: 6px;
+    --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+    --font-display: 'DM Serif Display', Georgia, serif;
+  }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: var(--surface);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 2rem;
+    background: rgba(250,250,249,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 1px 12px rgba(0,0,0,0.06); }
+  nav .nav-inner {
+    max-width: 1120px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  nav .logo { font-family: var(--font-display); font-size: 1.2rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+  nav .nav-links { display: flex; gap: 2rem; list-style: none; }
+  nav .nav-links a {
+    text-decoration: none; color: var(--ink-light); font-size: 0.875rem;
+    font-weight: 500; letter-spacing: 0.01em; transition: color 0.2s;
+    position: relative;
+  }
+  nav .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 2px; background: var(--accent); transform: scaleX(0);
+    transition: transform 0.25s; transform-origin: left;
+  }
+  nav .nav-links a:hover { color: var(--ink); }
+  nav .nav-links a:hover::after, nav .nav-links a.active::after { transform: scaleX(1); }
+  nav .nav-links a.active { color: var(--ink); }
+
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); margin: 5px 0; transition: 0.3s; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 7rem 2rem 4rem;
+    position: relative;
+    background: var(--ink);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 80%, rgba(45,92,230,0.15), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(200,151,62,0.1), transparent);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; max-width: 900px; text-align: left; width: 100%; }
+  .hero-label {
+    display: inline-block; font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.5rem;
+    background: rgba(200,151,62,0.1); padding: 0.4rem 1rem; border-radius: 100px;
+    border: 1px solid rgba(200,151,62,0.2);
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-size: clamp(2.8rem, 6vw, 4.5rem);
+    line-height: 1.1; color: #fff; margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 em { font-style: normal; color: var(--gold); }
+  .hero-sub {
+    font-size: 1.15rem; color: rgba(255,255,255,0.6); max-width: 560px;
+    line-height: 1.7; margin-bottom: 3rem;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: rgba(255,255,255,0.08); border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .hero-stat {
+    padding: 1.5rem 1.25rem; background: rgba(255,255,255,0.03);
+    text-align: center;
+  }
+  .hero-stat .num {
+    font-family: var(--font-display); font-size: 1.75rem; color: #fff;
+    display: block; margin-bottom: 0.25rem;
+  }
+  .hero-stat .label { font-size: 0.75rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  .section-inner { max-width: 1120px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    letter-spacing: -0.02em; margin-bottom: 1rem; line-height: 1.2;
+  }
+  .section-desc { color: var(--ink-light); max-width: 580px; margin-bottom: 3rem; font-size: 1.05rem; }
+
+  /* ABOUT */
+  .about { background: var(--surface); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+  .about-aside {
+    position: sticky; top: 100px;
+  }
+  .about-photo {
+    width: 100%; aspect-ratio: 1; background: var(--ink);
+    border-radius: var(--radius); overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 4rem; color: rgba(255,255,255,0.2);
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+  .about-photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(45,92,230,0.3), rgba(200,151,62,0.2));
+  }
+  .about-credentials {
+    margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .credential {
+    font-size: 0.75rem; font-weight: 500; color: var(--ink-light);
+    background: var(--surface-warm); padding: 0.35rem 0.75rem;
+    border-radius: 100px; border: 1px solid var(--border);
+  }
+  .about-text p { margin-bottom: 1.25rem; color: var(--ink-light); font-size: 1.02rem; }
+  .about-text p:first-of-type::first-line { color: var(--ink); font-weight: 500; }
+
+  /* PERFORMANCE */
+  .performance { background: var(--surface-warm); }
+  .perf-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .perf-card {
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 2rem; position: relative; overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .perf-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+  .perf-card .big-num {
+    font-family: var(--font-display); font-size: 3rem; color: var(--ink);
+    line-height: 1; margin-bottom: 0.5rem;
+  }
+  .perf-card .big-num.gold { color: var(--gold); }
+  .perf-card .big-num.accent { color: var(--accent); }
+  .perf-card p { color: var(--ink-light); font-size: 0.95rem; }
+  .perf-card .tag {
+    position: absolute; top: 1.25rem; right: 1.25rem;
+    font-size: 0.65rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; padding: 0.25rem 0.6rem; border-radius: 100px;
+  }
+  .perf-card .tag.top { background: var(--gold-light); color: var(--gold); }
+  .perf-card .tag.benchmark { background: var(--accent-light); color: var(--accent); }
+
+  /* EXPERIENCE */
+  .experience { background: var(--surface); }
+  .timeline { position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .tl-item {
+    padding-left: 2.5rem; padding-bottom: 3rem; position: relative;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .tl-item.visible { opacity: 1; transform: none; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -4px; top: 6px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--surface);
+  }
+  .tl-item.current::before { background: var(--gold); box-shadow: 0 0 0 4px var(--gold-light); }
+  .tl-role { font-weight: 600; font-size: 1.1rem; margin-bottom: 0.15rem; }
+  .tl-org { color: var(--accent); font-size: 0.95rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .tl-date { font-size: 0.8rem; color: var(--ink-muted); margin-bottom: 0.75rem; }
+  .tl-details { list-style: none; }
+  .tl-details li {
+    font-size: 0.9rem; color: var(--ink-light); padding: 0.2rem 0;
+    padding-left: 1rem; position: relative;
+  }
+  .tl-details li::before {
+    content: ''; position: absolute; left: 0; top: 0.6rem;
+    width: 4px; height: 4px; border-radius: 50%; background: var(--border);
+  }
+
+  /* PORTFOLIO */
+  .portfolio { background: var(--surface-warm); }
+  .portfolio-tabs {
+    display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap;
+  }
+  .portfolio-tab {
+    padding: 0.5rem 1.1rem; border-radius: 100px; font-size: 0.82rem;
+    font-weight: 500; cursor: pointer; border: 1px solid var(--border);
+    background: #fff; color: var(--ink-light); transition: 0.2s;
+  }
+  .portfolio-tab:hover { border-color: var(--ink-muted); color: var(--ink); }
+  .portfolio-tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .port-card {
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; transition: transform 0.25s, box-shadow 0.25s;
+    cursor: default;
+  }
+  .port-card:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,0.08); }
+  .port-card-header {
+    padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .port-card-name { font-weight: 600; font-size: 1.05rem; }
+  .port-card-sector {
+    font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--ink-muted); background: var(--surface-warm);
+    padding: 0.2rem 0.6rem; border-radius: 100px;
+  }
+  .port-card-body { padding: 1.25rem 1.5rem; }
+  .port-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .port-metric .val {
+    font-family: var(--font-display); font-size: 1.35rem; display: block;
+  }
+  .port-metric .val.positive { color: var(--success); }
+  .port-metric .val.negative { color: #c0392b; }
+  .port-metric .val.neutral { color: var(--ink-muted); }
+  .port-metric .met-label { font-size: 0.72rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .port-card-desc { font-size: 0.88rem; color: var(--ink-light); line-height: 1.6; }
+  .port-card.hidden { display: none; }
+
+  /* PHILOSOPHY */
+  .philosophy { background: var(--ink); color: #fff; position: relative; overflow: hidden; }
+  .philosophy::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 70% 60%, rgba(45,92,230,0.12), transparent);
+  }
+  .philosophy .section-label { color: var(--gold); }
+  .philosophy .section-title { color: #fff; }
+  .philosophy .section-desc { color: rgba(255,255,255,0.55); }
+  .phil-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; position: relative; }
+  .phil-card {
+    border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius);
+    padding: 2rem; background: rgba(255,255,255,0.03);
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .phil-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+  .phil-icon {
+    width: 40px; height: 40px; border-radius: 8px; margin-bottom: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 700;
+  }
+  .phil-icon.a { background: rgba(45,92,230,0.15); color: var(--accent); }
+  .phil-icon.b { background: rgba(200,151,62,0.15); color: var(--gold); }
+  .phil-icon.c { background: rgba(26,140,90,0.15); color: var(--success); }
+  .phil-icon.d { background: rgba(180,80,80,0.15); color: #e07070; }
+  .phil-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; font-weight: 600; }
+  .phil-card p { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.65; }
+
+  /* ECOSYSTEM */
+  .ecosystem { background: var(--surface); }
+  .eco-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .eco-card {
+    border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem;
+    background: #fff; transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .eco-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.05); }
+  .eco-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem; }
+  .eco-card p { font-size: 0.85rem; color: var(--ink-light); }
+
+  /* CTA */
+  .cta { background: var(--surface-warm); padding: 5rem 2rem; text-align: left; }
+  .cta-inner {
+    max-width: 1120px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 3rem;
+  }
+  .cta h2 { font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+  .cta p { color: var(--ink-light); font-size: 1.05rem; }
+  .cta-buttons { display: flex; gap: 1rem; flex-shrink: 0; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.75rem; border-radius: 100px; font-size: 0.9rem;
+    font-weight: 600; text-decoration: none; transition: 0.2s; border: none; cursor: pointer;
+    font-family: var(--font-body);
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-dark); }
+  .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--ink); }
+
+  /* FOOTER */
+  footer {
+    padding: 2.5rem 2rem; background: var(--ink); color: rgba(255,255,255,0.4);
+    font-size: 0.82rem;
+  }
+  footer .footer-inner {
+    max-width: 1120px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+  footer a:hover { color: #fff; }
+  footer .footer-links { display: flex; gap: 1.5rem; }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* COUNT-UP animation for hero stats */
+  .count-up { display: inline-block; }
+
+  /* MOBILE */
+  .mobile-menu {
+    display: none; position: fixed; top: 64px; left: 0; right: 0;
+    background: rgba(250,250,249,0.98); backdrop-filter: blur(16px);
+    padding: 1rem 2rem 2rem; border-bottom: 1px solid var(--border);
+    z-index: 99;
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a {
+    display: block; padding: 0.75rem 0; color: var(--ink-light);
+    text-decoration: none; font-size: 0.95rem; font-weight: 500;
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (max-width: 900px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-aside { position: static; }
+    .perf-cards { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
+    .phil-grid { grid-template-columns: 1fr; }
+    .eco-grid { grid-template-columns: 1fr; }
+    .cta-inner { flex-direction: column; text-align: center; }
+    .cta-buttons { justify-content: center; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none !important; }
+    .hamburger { display: block; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    section { padding: 4rem 1.25rem; }
+    footer .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">Bernardt Vogel</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#performance">Performance</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#philosophy">Philosophy</a></li>
+      <li><a href="#contact" class="btn btn-primary" style="padding:0.45rem 1.2rem;font-size:0.82rem;">Get in Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#performance" onclick="closeMobile()">Performance</a>
+  <a href="#experience" onclick="closeMobile()">Experience</a>
+  <a href="#portfolio" onclick="closeMobile()">Portfolio</a>
+  <a href="#philosophy" onclick="closeMobile()">Philosophy</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <span class="hero-label">Venture Capital &middot; Ecosystem Building</span>
+    <h1>Bridging Innovation Between <em>Emerging Markets</em> & Global Opportunities</h1>
+    <p class="hero-sub">Early-stage investor across AI, healthtech, fintech, and crypto with a unique multicultural lens spanning North and Latin America.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="num" data-target="237" data-suffix="x">0x</span>
+        <span class="label">Portfolio Multiple</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num" data-target="18.2" data-prefix="$" data-suffix="M" data-decimals="1">$0M</span>
+        <span class="label">Portfolio Value</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num" data-target="50" data-suffix="+">0+</span>
+        <span class="label">Companies Invested</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num" data-target="3000" data-suffix="+">0+</span>
+        <span class="label">Startups Evaluated</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-aside fade-in">
+        <div class="about-photo">BV</div>
+        <div class="about-credentials">
+          <span class="credential">FMVA Certified</span>
+          <span class="credential">Babson MBA</span>
+          <span class="credential">Purdue Alumni</span>
+          <span class="credential">NVCA Rising Star '23</span>
+        </div>
+      </div>
+      <div class="about-text fade-in">
+        <p class="section-label">About</p>
+        <h2 class="section-title">A Bridge Between Ecosystems</h2>
+        <p>Born in the Dominican Republic and raised between Nicaragua and the United States, I've developed a unique multicultural perspective that drives my approach to venture capital. My journey spans from being a COO at 21, scaling a startup to 500+ employees and $42M raised, to becoming a Senior Associate at VU Venture Partners.</p>
+        <p>I specialize in early-stage investments across fintech, AI, healthcare, and crypto, with a particular focus on bridging North American and Latin American markets. My investment philosophy centers on supporting founders who are building category-defining companies with global impact potential.</p>
+        <p>Beyond investing, I'm deeply committed to ecosystem building&mdash;from organizing Nicaragua's first fintech event with Mastercard to co-founding initiatives like the Founder Mental Health Pledge and Sweater Fund. I believe exceptional founders can emerge from anywhere, and my mission is to ensure they have the capital and support they need to succeed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERFORMANCE -->
+<section class="performance" id="performance">
+  <div class="section-inner">
+    <p class="section-label fade-in">Performance</p>
+    <h2 class="section-title fade-in">Investment Performance Highlights</h2>
+    <p class="section-desc fade-in">A track record of identifying category-defining companies before inflection points, with returns driven by power law dynamics.</p>
+    <div class="perf-cards">
+      <div class="perf-card fade-in">
+        <span class="tag top">Top Investment</span>
+        <div class="big-num gold">629x</div>
+        <p>Hinge Health return multiple&mdash;leading digital health unicorn, filed for IPO at $6.5B valuation</p>
+      </div>
+      <div class="perf-card fade-in">
+        <span class="tag top">Top Investment</span>
+        <div class="big-num gold">123x</div>
+        <p>OpenAI return multiple&mdash;early AI infrastructure bet, now valued at $300B+ post-SoftBank round</p>
+      </div>
+      <div class="perf-card fade-in">
+        <span class="tag benchmark">Power Law</span>
+        <div class="big-num accent">96%</div>
+        <p>Portfolio value driven by top 2 investments, demonstrating successful outlier identification</p>
+      </div>
+      <div class="perf-card fade-in">
+        <span class="tag benchmark">Benchmark</span>
+        <div class="big-num accent">vs 1.7x</div>
+        <p>Industry median VC return multiple comparison&mdash;significantly outperforming benchmarks</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-inner">
+    <p class="section-label fade-in">Experience</p>
+    <h2 class="section-title fade-in">Professional Journey</h2>
+    <p class="section-desc fade-in">From operational leadership in Central America to venture capital in the U.S., a career built on bridging ecosystems.</p>
+    <div class="timeline">
+      <div class="tl-item current">
+        <div class="tl-role">Senior Associate</div>
+        <div class="tl-org">VU Venture Partners</div>
+        <div class="tl-date">January 2022 &ndash; Present</div>
+        <ul class="tl-details">
+          <li>Managing deal flow and investment analysis for $100M+ multi-stage fund</li>
+          <li>Led 15+ companies through IC process, resulting in successful capital deployment</li>
+          <li>Evaluated 3,000+ startups and conducted due diligence on 50+ companies</li>
+          <li>Core investments: Alexandria Labs, 3D Bio Therapeutics, Modularity Space, Doorstead</li>
+          <li>Nominated as 2023 NVCA Rising Star for community building and deal leadership</li>
+        </ul>
+      </div>
+      <div class="tl-item current">
+        <div class="tl-role">Venture Analyst</div>
+        <div class="tl-org">New World Angels</div>
+        <div class="tl-date">November 2022 &ndash; Present</div>
+        <ul class="tl-details">
+          <li>Supporting due diligence teams across diverse industries and technologies</li>
+          <li>Produced 5 research reports and 3 monthly diligence updates for investors</li>
+          <li>Developed strategies resulting in 20% increase in deal flow</li>
+          <li>Monitoring Florida startup ecosystem and connecting with 100+ investors</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Investment Director</div>
+        <div class="tl-org">Integra Group Latin America</div>
+        <div class="tl-date">January 2017 &ndash; Present</div>
+        <ul class="tl-details">
+          <li>Led acquisition of cash-flow generating assets including 35MW geothermal plant</li>
+          <li>Invested in Condor Gold, diversifying fund portfolio</li>
+          <li>Generated 22% IRR over seven years through strategic investments</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Financial Planning &amp; Analysis Manager</div>
+        <div class="tl-org">Momotombo Power Company (Nicaragua)</div>
+        <div class="tl-date">January 2016 &ndash; January 2018</div>
+        <ul class="tl-details">
+          <li>Managed financial analysis for geothermal power operations</li>
+          <li>Developed expertise in energy sector financial modeling</li>
+          <li>Built local network that would later support fintech initiatives</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Chief Operating Officer</div>
+        <div class="tl-org">EcoPlanet Bamboo Central America</div>
+        <div class="tl-date">September 2011 &ndash; September 2014</div>
+        <ul class="tl-details">
+          <li>At age 21, helped scale startup to 500+ employees across South Africa and LATAM</li>
+          <li>Raised $42 million in funding during rapid growth phase</li>
+          <li>Developed operational expertise in international startup scaling</li>
+          <li>Gained early exposure to sustainable development and impact investing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="section-inner">
+    <p class="section-label fade-in">Portfolio</p>
+    <h2 class="section-title fade-in">Investment Portfolio Highlights</h2>
+    <p class="section-desc fade-in">A curated selection of early-stage bets across transformative sectors.</p>
+    <div class="portfolio-tabs fade-in">
+      <button class="portfolio-tab active" data-filter="all">All</button>
+      <button class="portfolio-tab" data-filter="ai">AI</button>
+      <button class="portfolio-tab" data-filter="health">Health</button>
+      <button class="portfolio-tab" data-filter="fintech">Fintech/Crypto</button>
+      <button class="portfolio-tab" data-filter="other">Other</button>
+    </div>
+    <div class="portfolio-grid" id="portfolioGrid">
+
+      <div class="port-card" data-cat="ai">
+        <div class="port-card-header">
+          <span class="port-card-name">OpenAI</span>
+          <span class="port-card-sector">AI</span>
+        </div>
+        <div class="port-card-body">
+          <div class="port-metrics">
+            <div class="port-metric"><span class="val">$15K</span><span class="met-label">Invested (2018)</span></div>
+            <div class="port-metric"><span class="val positive">123x</span><span class="met-label">Return Multiple</span></div>
+          </div>
+          <p class="port-card-desc">Early investment in generative AI leader, now valued at $300B+ post-SoftBank round. Exemplifies thesis on transformative AI infrastructure.</p>
+        </div>
+      </div>
+
+      <div class="port-card" data-cat="health">
+        <div class="port-card-header">
+          <span class="port-card-name">Hinge Health</span>
+          <span class="port-card-sector">Digital Health</span>
+        </div>
+        <div class="port-card-body">
+          <div class="port-metrics">
+            <div class="port-metric"><span class="val">$25K</span><span class="met-label">Invested (2016)</span></div>
+            <div class="port-metric"><span class="val positive">629x</span><span class="met-label">Return Multiple</span></div>
+          </div>
+          <p class="port-card-desc">Seed investment in digital musculoskeletal care leader with 98% client retention. Filed for IPO in 2025 at $6.5B valuation.</p>
+        </div>
+      </div>
+
+      <div class="port-card" data-cat="other">
+        <div class="port-card-header">
+          <span class="port-card-name">Substack</span>
+          <span class="port-card-sector">Media</span>
+        </div>
+        <div class="port-card-body">
+          <div class="port-metrics">
+            <div class="port-metric"><span class="val">$10K</span><span class="met-label">Invested (2018)</span></div>
+            <div class="port-metric"><span class="val positive">63x</span><span class="met-label">Return Multiple</span></div>
+          </div>
+          <p class="port-card-desc">Early bet on creator economy platform revolutionizing newsletter monetization. Now valued at $650M with strong creator network effects.</p>
+        </div>
+      </div>
+
+      <div class="port-card" data-cat="fintech">
+        <div class="port-card-header">
+          <span class="port-card-name">Elenas</span>
+          <span class="port-card-sector">Social Commerce</span>
+        </div>
+        <div class="port-card-body">
+          <div class="port-metrics">
+            <div class="port-metric"><span class="val">$10K</span><span class="met-label">Invested (2019)</span></div>
+            <div class="port-metric"><span class="val neutral">1x</span><span class="met-label">Return Multiple</span></div>
+          </div>
+          <p class="port-card-desc">Social commerce platform for Latin American markets. Demonstrates commitment to supporting LATAM ecosystem development.</p>
+        </div>
+      </div>
+
+      <div class="port-card" data-cat="fintech">
+        <div class="port-card-header">
+          <span class="port-card-name">Ripple (XRP)</span>
+          <span class="port-card-sector">Blockchain</span>
+        </div>
+        <div class="port-card-body">
+          <div class="port-metrics">
+            <div class="port-metric"><span class="val">$10K</span><span class="met-label">Invested (2020)</span></div>
+            <div class="port-metric"><span class="val negative">0.56x</span><span class="met-label">Return Multiple</span></div>
+          </div>
+          <p class="port-card-desc">Cross-border payment infrastructure with regulatory challenges. Shows portfolio diversification across crypto and fintech.</p>
+        </div>
+      </div>
+
+      <div class="port-card" data-cat="other">
+        <div class="port-card-header">
+          <span class="port-card-name">Natilus</span>
+          <span class="port-card-sector">Aerospace</span>
+        </div>
+        <div class="port-card-body">
+          <div class="port-metrics">
+            <div class="port-metric"><span class="val">$5K</span><span class="met-label">Invested (2021)</span></div>
+            <div class="port-metric"><span class="val positive">2.7x</span><span class="met-label">Return Multiple</span></div>
+          </div>
+          <p class="port-card-desc">Autonomous freight aircraft technology for cargo transportation. Represents thesis on logistics automation and sustainability.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="philosophy">
+  <div class="section-inner">
+    <p class="section-label fade-in">Philosophy</p>
+    <h2 class="section-title fade-in">Investment Approach</h2>
+    <p class="section-desc fade-in">A framework built on pattern recognition, timing, and a global perspective.</p>
+    <div class="phil-grid">
+      <div class="phil-card fade-in">
+        <div class="phil-icon a">PL</div>
+        <h3>Power Law Focus</h3>
+        <p>Concentrated bets on category-defining companies with exponential growth potential. 96% of portfolio value from top 2 investments demonstrates successful outlier identification.</p>
+      </div>
+      <div class="phil-card fade-in">
+        <div class="phil-icon b">ES</div>
+        <h3>Early-Stage Entry</h3>
+        <p>Seed and Series A investments before valuation surges. Early OpenAI (2018) and Hinge Health (2016) positions exemplify timing advantage.</p>
+      </div>
+      <div class="phil-card fade-in">
+        <div class="phil-icon c">GP</div>
+        <h3>Global Perspective</h3>
+        <p>Bridging North American and Latin American ecosystems. Nicaragua fintech event with Mastercard and LATAM startup investments showcase regional expertise.</p>
+      </div>
+      <div class="phil-card fade-in">
+        <div class="phil-icon d">SE</div>
+        <h3>Sector Expertise</h3>
+        <p>Deep focus on AI, healthtech, fintech, and crypto. Strategic exposure to high-growth markets with strong network effects and scalable business models.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="ecosystem" id="ecosystem">
+  <div class="section-inner">
+    <p class="section-label fade-in">Ecosystem</p>
+    <h2 class="section-title fade-in">Building Beyond the Portfolio</h2>
+    <p class="section-desc fade-in">Committed to making venture capital more accessible, inclusive, and supportive of founder well-being.</p>
+    <div class="eco-grid">
+      <div class="eco-card fade-in">
+        <h3>Sweater Fund</h3>
+        <p>Co-founding member making VC accessible to retail investors, democratizing access to venture returns.</p>
+      </div>
+      <div class="eco-card fade-in">
+        <h3>Founder Mental Health Pledge</h3>
+        <p>Destigmatizing founder mental health and building support systems for the entrepreneurial community.</p>
+      </div>
+      <div class="eco-card fade-in">
+        <h3>Launch House Web3</h3>
+        <p>Supporting crypto and web3 founders through community, mentorship, and early-stage capital.</p>
+      </div>
+      <div class="eco-card fade-in">
+        <h3>Consilience Ventures</h3>
+        <p>Global expert for data-driven VC ecosystem, advising on analytical approaches to venture investing.</p>
+      </div>
+      <div class="eco-card fade-in">
+        <h3>Cap Table Coalition</h3>
+        <p>Promoting diversity and inclusion in startup funding, expanding opportunities for underrepresented founders.</p>
+      </div>
+      <div class="eco-card fade-in">
+        <h3>Nicaragua Fintech Event</h3>
+        <p>Organized Nicaragua's first fintech event in partnership with Mastercard, catalyzing the regional ecosystem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-inner">
+    <div>
+      <h2>Let's Build the Future Together</h2>
+      <p>Passionate about supporting exceptional founders and building bridges across ecosystems.</p>
+    </div>
+    <div class="cta-buttons">
+      <a href="mailto:bernardtvogel@gmail.com" class="btn btn-primary">Get in Touch</a>
+      <a href="https://www.linkedin.com/in/bernardtvogel" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span>&copy; 2025 Bernardt Vogel. Venture Capital Investor &amp; Ecosystem Builder.</span>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/bernardtvogel" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://twitter.com/bernardtvogel" target="_blank" rel="noopener">Twitter</a>
+      <a href="https://substack.com/@bernardtvogel" target="_blank" rel="noopener">Substack</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  // Navbar scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  window.closeMobile = () => mobileMenu.classList.remove('open');
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  function setActiveLink() {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', setActiveLink);
+
+  // Fade-in observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); }});
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-in, .tl-item').forEach(el => observer.observe(el));
+
+  // Count-up for hero stats
+  function animateCountUp() {
+    document.querySelectorAll('.hero-stat .num').forEach(el => {
+      const target = parseFloat(el.dataset.target);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const decimals = parseInt(el.dataset.decimals) || 0;
+      const duration = 1800;
+      const start = performance.now();
+
+      function update(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = eased * target;
+        el.textContent = prefix + (decimals ? current.toFixed(decimals) : Math.floor(current).toLocaleString()) + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    });
+  }
+
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { animateCountUp(); heroObserver.disconnect(); }});
+  }, { threshold: 0.3 });
+  heroObserver.observe(document.querySelector('.hero-stats'));
+
+  // Portfolio filter
+  const tabs = document.querySelectorAll('.portfolio-tab');
+  const cards = document.querySelectorAll('.port-card');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.cat === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Timeline stagger
+  const tlItems = document.querySelectorAll('.tl-item');
+  const tlObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 120);
+      }
+    });
+  }, { threshold: 0.1 });
+  tlItems.forEach(el => tlObserver.observe(el));
+
+})();
+</script>
+</body>
+</html>
