@@ -151,14 +151,16 @@
   .about-photo {
     width: 100%; aspect-ratio: 1; background: var(--ink);
     border-radius: var(--radius); overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-size: 4rem; color: rgba(255,255,255,0.2);
-    letter-spacing: 0.05em;
     position: relative;
+  }
+  .about-photo img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    display: block;
   }
   .about-photo::after {
     content: ''; position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(45,92,230,0.3), rgba(200,151,62,0.2));
+    background: linear-gradient(135deg, rgba(45,92,230,0.08), rgba(200,151,62,0.05));
+    pointer-events: none;
   }
   .about-credentials {
     margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem;
@@ -307,6 +309,43 @@
   .eco-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem; }
   .eco-card p { font-size: 0.85rem; color: var(--ink-light); }
 
+  /* RECOGNITIONS */
+  .recognitions { background: var(--surface-warm); }
+  .recog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2.5rem; }
+  .recog-card {
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.75rem; text-align: center; transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .recog-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  .recog-icon {
+    width: 52px; height: 52px; border-radius: 12px; margin: 0 auto 1rem;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+  }
+  .recog-icon.award { background: var(--gold-light); color: var(--gold); }
+  .recog-icon.cert { background: var(--accent-light); color: var(--accent); }
+  .recog-icon.edu { background: #e8f5e9; color: var(--success); }
+  .recog-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .recog-card .recog-org { font-size: 0.82rem; color: var(--accent); font-weight: 500; margin-bottom: 0.25rem; }
+  .recog-card .recog-year { font-size: 0.75rem; color: var(--ink-muted); }
+  .recog-links {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  }
+  .recog-link {
+    display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.25rem;
+    border-radius: 100px; font-size: 0.85rem; font-weight: 500;
+    text-decoration: none; border: 1px solid var(--border); color: var(--ink-light);
+    background: #fff; transition: 0.2s;
+  }
+  .recog-link:hover { border-color: var(--accent); color: var(--accent); }
+  .recog-link svg { width: 16px; height: 16px; }
+
+  @media (max-width: 900px) {
+    .recog-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .recog-grid { grid-template-columns: 1fr; }
+  }
+
   /* CTA */
   .cta { background: var(--surface-warm); padding: 5rem 2rem; text-align: left; }
   .cta-inner {
@@ -398,6 +437,7 @@
       <li><a href="#experience">Experience</a></li>
       <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#philosophy">Philosophy</a></li>
+      <li><a href="#recognitions">Recognitions</a></li>
       <li><a href="#contact" class="btn btn-primary" style="padding:0.45rem 1.2rem;font-size:0.82rem;">Get in Touch</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -411,6 +451,7 @@
   <a href="#experience" onclick="closeMobile()">Experience</a>
   <a href="#portfolio" onclick="closeMobile()">Portfolio</a>
   <a href="#philosophy" onclick="closeMobile()">Philosophy</a>
+  <a href="#recognitions" onclick="closeMobile()">Recognitions</a>
   <a href="#contact" onclick="closeMobile()">Contact</a>
 </div>
 
@@ -447,7 +488,7 @@
   <div class="section-inner">
     <div class="about-grid">
       <div class="about-aside fade-in">
-        <div class="about-photo">BV</div>
+        <div class="about-photo" id="photoContainer"><img id="profileImg" src="bernardt-photo.jpg" alt="Bernardt Vogel"></div>
         <div class="about-credentials">
           <span class="credential">FMVA Certified</span>
           <span class="credential">Babson MBA</span>
@@ -731,6 +772,75 @@
   </div>
 </section>
 
+<!-- RECOGNITIONS -->
+<section class="recognitions" id="recognitions">
+  <div class="section-inner">
+    <p class="section-label fade-in">Recognitions & Accreditations</p>
+    <h2 class="section-title fade-in">Awards, Certifications & Credentials</h2>
+    <p class="section-desc fade-in">A foundation of recognized expertise spanning finance, venture capital, and thought leadership.</p>
+    <div class="recog-grid">
+
+      <div class="recog-card fade-in">
+        <div class="recog-icon award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+        <h3>NVCA Rising Star Nominee</h3>
+        <div class="recog-org">National Venture Capital Association</div>
+        <div class="recog-year">2023</div>
+      </div>
+
+      <div class="recog-card fade-in">
+        <div class="recog-icon cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>FMVA&reg; &mdash; Financial Modeling &amp; Valuation Analyst</h3>
+        <div class="recog-org">Corporate Finance Institute (CFI)</div>
+        <div class="recog-year">Certified</div>
+      </div>
+
+      <div class="recog-card fade-in">
+        <div class="recog-icon edu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg></div>
+        <h3>MBA</h3>
+        <div class="recog-org">Babson College</div>
+        <div class="recog-year">Entrepreneurship</div>
+      </div>
+
+      <div class="recog-card fade-in">
+        <div class="recog-icon edu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg></div>
+        <h3>Bachelor's Degree</h3>
+        <div class="recog-org">Purdue University</div>
+        <div class="recog-year">Alumni</div>
+      </div>
+
+      <div class="recog-card fade-in">
+        <div class="recog-icon award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <h3>Thinkers360 Thought Leader</h3>
+        <div class="recog-org">Thinkers360</div>
+        <div class="recog-year">Recognized</div>
+      </div>
+
+      <div class="recog-card fade-in">
+        <div class="recog-icon cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>Verified Credentials</h3>
+        <div class="recog-org">Accredible / Credential.net</div>
+        <div class="recog-year">Multiple</div>
+      </div>
+
+    </div>
+
+    <div class="recog-links fade-in">
+      <a href="https://www.thinkers360.com/tl/badge/28464/5007" target="_blank" rel="noopener" class="recog-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Thinkers360 Badge
+      </a>
+      <a href="https://www.credential.net/profile/bernardtvogel/wallet" target="_blank" rel="noopener" class="recog-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        Credential Wallet
+      </a>
+      <a href="https://www.linkedin.com/in/bernardtvogel/details/certifications/" target="_blank" rel="noopener" class="recog-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn Certifications
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta" id="contact">
   <div class="cta-inner">
@@ -759,6 +869,15 @@
 
 <script>
 (function() {
+  // Photo fallback — gracefully handles missing image
+  const img = document.getElementById('profileImg');
+  const container = document.getElementById('photoContainer');
+  if (img) {
+    img.onerror = function() {
+      container.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a2e,#2d3a5e);"><span style="font-family:DM Serif Display,Georgia,serif;font-size:4.5rem;color:rgba(255,255,255,0.15);letter-spacing:0.05em">BV</span></div>';
+    };
+  }
+
   // Navbar scroll
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
